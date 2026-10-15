@@ -1,0 +1,109 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f1419;
+  --card: #1a2330;
+  --line: #2c3b4e;
+  --text: #e8eef6;
+  --muted: #93a4b8;
+  --accent: #4cc2ff;
+  --ok: #3dd68c;
+  --bad: #ff6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+}
+
+p {
+  color: var(--muted);
+}
+
+.status {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 18px 0 24px;
+}
+
+.pill {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.on {
+  color: var(--ok);
+}
+
+.off {
+  color: var(--bad);
+}
+
+textarea,
+select,
+button {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+}
+
+textarea {
+  min-height: 120px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+select,
+button {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+button {
+  background: var(--accent);
+  color: #062033;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+pre {
+  white-space: pre-wrap;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  min-height: 80px;
+}

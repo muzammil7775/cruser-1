@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cruser — Cursor + Python + ChatGPT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <main>
+      <h1>Cruser connected</h1>
+      <p>Python app linked to Cursor Agent and ChatGPT.</p>
+      <div class="status" id="status"></div>
+      <textarea id="prompt" placeholder="Type a message..."></textarea>
+      <div class="row">
+        <select id="provider">
+          <option value="chatgpt">ChatGPT</option>
+          <option value="cursor">Cursor</option>
+        </select>
+        <button id="send">Send</button>
+      </div>
+      <pre id="out">Ready.</pre>
+    </main>
+    <script>
+      const statusEl = document.getElementById("status");
+      const out = document.getElementById("out");
+
+      async function loadStatus() {
+        const res = await fetch("/api/status");
+        const data = await res.json();
+        statusEl.innerHTML = [
+          pill("Python", data.python),
+          pill("Cursor key", data.cursor),
+          pill("ChatGPT key", data.chatgpt),
+        ].join("");
+      }
+
+      function pill(name, ok) {
+        return `<span class="pill ${ok ? "on" : "off"}">${name}: ${ok ? "connected" : "needs key"}</span>`;
+      }
+
+      document.getElementById("send").addEventListener("click", async () => {
+        const prompt = document.getElementById("prompt").value.trim();
+        const provider = document.getElementById("provider").value;
+        if (!prompt) {
+          out.textContent = "Write a prompt first.";
+          return;
+        }
+        out.textContent = "Working...";
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt, provider }),
+        });
+        const data = await res.json();
+        out.textContent = data.reply || data.error || "No reply.";
+      });
+
+      loadStatus();
+    </script>
+  </body>
+</html>
